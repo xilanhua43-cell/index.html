@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>致甜恬的生日信</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #fbeeee 0%, #f6e8e8 55%, #efe0e0 100%);
+    font-family: "Noto Serif SC", "Songti SC", "Microsoft Yahei", serif;
+    overflow-x: hidden;
+    color: #4a3535;
+  }
+
+  /* ===== 信封 ===== */
+  .envelope-wrap {
+    position: fixed; inset: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #fbeeee 0%, #f6e8e8 55%, #efe0e0 100%);
+    transition: opacity .8s ease;
+  }
+  .envelope {
+    width: 320px; max-width: 82vw; height: 220px;
+    background: #e3b9b9; border-radius: 0 0 14px 14px;
+    position: relative; cursor: pointer;
+    box-shadow: 0 14px 34px rgba(150, 95, 95, .28);
+    transition: transform .3s ease;
+  }
+  .envelope:active { transform: scale(.97); }
+  .envelope-flap {
+    position: absolute; top: 0; left: 0; width: 100%; height: 112px;
+    background: #d3a3a3;
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform-origin: top center;
+    transition: transform .7s ease-in-out;
+    z-index: 3;
+  }
+  .envelope.open .envelope-flap { transform: rotateX(180deg); }
+  .envelope-seal {
+    position: absolute; top: 78px; left: 50%; transform: translateX(-50%);
+    width: 46px; height: 46px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #e88, #b24b4b);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; z-index: 4; box-shadow: 0 3px 10px rgba(120,50,50,.35);
+  }
+  .envelope-text {
+    position: absolute; bottom: 38px; width: 100%; text-align: center;
+    font-size: 17px; letter-spacing: 4px; color: #6f3f3f; z-index: 1;
+  }
+  .tip {
+    position: absolute; bottom: -34px; width: 100%; text-align: center;
+    font-size: 13px; color: #9a6666; letter-spacing: 1px;
+  }
+
+  /* ===== 信纸 ===== */
+  .letter-wrap {
+    max-width: 540px; margin: 36px auto 60px; padding: 42px 32px;
+    background: #fffaf6; border-radius: 18px;
+    box-shadow: 0 10px 36px rgba(160, 110, 110, .18);
+    line-height: 2.05; display: none; position: relative;
+  }
+  .letter-wrap.show { display: block; animation: rise .8s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  .letter-wrap::before {
+    content: ""; position: absolute; left: 0; top: 0; width: 5px; height: 100%;
+    background: linear-gradient(#e8a0a0, #f3c9c9); border-radius: 5px 0 0 5px;
+  }
+  h2 { text-align: center; color: #b56074; font-size: 22px; margin-bottom: 8px; letter-spacing: 2px; }
+  .sub { text-align: center; color: #b98a8a; font-size: 13px; margin-bottom: 26px; }
+  p { margin-bottom: 16px; font-size: 15.5px; text-indent: 2em; }
+  .divider { text-align: center; margin: 26px 0; color: #c98a9e; letter-spacing: 6px; }
+  .sign { text-align: right; margin-top: 30px; font-size: 15px; color: #6b5252; line-height: 1.9; }
+
+  /* 花瓣 */
+  .petal {
+    position: fixed; top: -10%; background: #ffc8dd;
+    border-radius: 50% 0 50% 50%; opacity: .7;
+    animation: fall linear infinite; pointer-events: none; z-index: 5;
+  }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(105vh) rotate(360deg); }
+  }
+
+  @media (max-width: 480px) {
+    .letter-wrap { margin: 24px 16px 50px; padding: 32px 24px; }
+    p { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 信封 -->
+  <div class="envelope-wrap" id="envWrap">
+    <div class="envelope" id="envelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-seal">✉</div>
+      <div class="envelope-text">致 甜恬</div>
+      <div class="tip">点击信封，拆开这封信 ✨</div>
+    </div>
+  </div>
+
+  <!-- 信纸 -->
+  <div class="letter-wrap" id="letter">
+    <h2>🎂 致 甜恬 的生日祝福</h2>
+    <div class="sub">来自三只奶龙与 Broccoli 的心意</div>
+
+    <p>甜恬，祝你生日快乐！我们很高兴我们能作为新成员来到你家！由我书生奶龙来给你做介绍吧！</p >
+
+    <p>首先是太阳花奶龙。太阳花奶龙希望它能让你每天都开开心心的，每次回到家看到它能褪去今天的不开心和疲惫。</p >
+
+    <p>接着就是飞天奶龙，它可是寄托了我们三个的希望！它的任务就是跟着你到你想要去的任何地方，陪着你欢笑，在你失落的时候能够陪伴在你身边。</p >
+
+    <p>最后就是我了！其实我是最后被临时列入清单的，因为 Broccoli 在逛商城的时候看到了我，想到我很适合现在的你，所以就决定一起买下来了！他希望我能帮助你取得一个好的成绩，叮嘱我要告诉你不要忘记自己的梦想。我会好好陪你一起努力！</p >
+
+    <p>下面是 Broccoli 的内容啦！</p >
+
+    <div class="divider">· · ·</div>
+
+    <p>甜恬，</p >
+
+    <p>你好！首先祝你生日快乐，时间实在不是那么充裕，所以准备得十分仓促，希望见谅。关于最后送了三件玩偶的事情，没什么特别的，就是偶然刷到那孩子，觉得很可爱，就买下来了，意蕴也是其中一部分吧。我觉得玩偶们是有生命的，我很爱惜我自己的玩偶，希望你也能好好保护你的新朋友们。</p >
+
+    <div class="sign">
+      祝好！<br>
+      Broccoli
+    </div>
+  </div>
+
+<script>
+  const envelope = document.getElementById('envelope');
+  const envWrap = document.getElementById('envWrap');
+  const letter = document.getElementById('letter');
+
+  function openLetter() {
+    envelope.classList.add('open');
+    setTimeout(() => {
+      envWrap.style.opacity = '0';
+      setTimeout(() => {
+        envWrap.style.display = 'none';
+        letter.classList.add('show');
+        createPetals();
+      }, 800);
+    }, 600);
+  }
+
+  envelope.addEventListener('click', openLetter);
+
+  function createPetals() {
+    for (let i = 0; i < 26; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      const size = Math.random() * 8 + 6;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 6 + 5) + 's';
+      p.style.animationDelay = Math.random() * 3 + 's';
+      document.body.appendChild(p);
+    }
+  }
+</script>
+</body>
+</html>
